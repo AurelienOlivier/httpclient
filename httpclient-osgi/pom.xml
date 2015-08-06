@@ -31,6 +31,7 @@
     <version>4.3.4</version>
   </parent>
   <artifactId>httpclient-osgi</artifactId>
+  <version>4.3.4.1-SNAPSHOT</version>
   <name>Apache HttpClient OSGi bundle</name>
   <inceptionYear>1999</inceptionYear>
   <description>
@@ -42,13 +43,14 @@
   <properties>
     <httpcore.osgi.import.version>"[4.3.0, 4.4.0)"</httpcore.osgi.import.version>
     <commons-logging.osgi.import.version>"[1.1.0, 1.2.0)"</commons-logging.osgi.import.version>
+    <httpclient.version>4.3.4</httpclient.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
-      <version>${project.version}</version>
+      <version>${httpclient.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -65,19 +67,19 @@
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpmime</artifactId>
-      <version>${project.version}</version>
+      <version>${httpclient.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient-cache</artifactId>
-      <version>${project.version}</version>
+      <version>${httpclient.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>fluent-hc</artifactId>
-      <version>${project.version}</version>
+      <version>${httpclient.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
