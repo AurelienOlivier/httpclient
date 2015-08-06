@@ -5,7 +5,7 @@ import org.apache.http.HttpHost;
 import org.apache.http.osgi.services.ProxyConfiguration;
 import org.junit.Test;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
