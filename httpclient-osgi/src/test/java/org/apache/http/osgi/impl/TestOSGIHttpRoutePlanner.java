@@ -38,5 +38,8 @@ public final class TestOSGIHttpRoutePlanner {
 
         when(proxyConfigurationMock.getProxyExceptions()).thenReturn(new String[]{".google.com", ".google.ru"});
         assertNotNull(osgiHttpRoutePlanner.determineProxyFromProxyConfiguration(httpHost, proxyConfigurationMock));
+
+        when(proxyConfigurationMock.isEnabled()).thenReturn(false);
+        assertNull(osgiHttpRoutePlanner.determineProxyFromProxyConfiguration(httpHost, proxyConfigurationMock));
     }
 }
