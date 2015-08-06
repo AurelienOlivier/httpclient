@@ -72,8 +72,6 @@ final class OSGiHttpRoutePlanner extends DefaultRoutePlanner {
      */
     @Override
     protected HttpHost determineProxy(final HttpHost target, final HttpRequest request, final HttpContext context) throws HttpException {
-        ProxyConfiguration proxyConfiguration;
-
         for (final ServiceRegistration registration : registeredConfigurations.values()) {
             final Object proxyConfigurationObject = bundleContext.getService(registration.getReference());
 
