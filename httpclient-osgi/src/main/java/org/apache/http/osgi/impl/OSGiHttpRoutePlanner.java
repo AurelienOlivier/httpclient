@@ -26,11 +26,6 @@
  */
 package org.apache.http.osgi.impl;
 
-import java.util.Locale;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.http.HttpException;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
@@ -39,6 +34,11 @@ import org.apache.http.osgi.services.ProxyConfiguration;
 import org.apache.http.protocol.HttpContext;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
+
+import java.util.Locale;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @since 4.3
@@ -72,7 +72,7 @@ final class OSGiHttpRoutePlanner extends DefaultRoutePlanner {
      */
     @Override
     protected HttpHost determineProxy(final HttpHost target, final HttpRequest request, final HttpContext context) throws HttpException {
-        ProxyConfiguration proxyConfiguration = null;
+        ProxyConfiguration proxyConfiguration;
 
         for (final ServiceRegistration registration : registeredConfigurations.values()) {
             final Object proxyConfigurationObject = bundleContext.getService(registration.getReference());
@@ -82,10 +82,10 @@ final class OSGiHttpRoutePlanner extends DefaultRoutePlanner {
                     for (final String exception : proxyConfiguration.getProxyExceptions()) {
                         if (createMatcher(exception).matches(target.getHostName())) {
                             return null;
-                        } else {
-                            return new HttpHost(proxyConfiguration.getHostname(), proxyConfiguration.getPort());
                         }
                     }
+
+                    return new HttpHost(proxyConfiguration.getHostname(), proxyConfiguration.getPort());
                 }
             }
         }
