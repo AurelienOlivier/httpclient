@@ -76,18 +76,26 @@ final class OSGiHttpRoutePlanner extends DefaultRoutePlanner {
 
         for (final ServiceRegistration registration : registeredConfigurations.values()) {
             final Object proxyConfigurationObject = bundleContext.getService(registration.getReference());
-            if (proxyConfigurationObject != null) {
-                proxyConfiguration = (ProxyConfiguration) proxyConfigurationObject;
-                if (proxyConfiguration.isEnabled()) {
-                    for (final String exception : proxyConfiguration.getProxyExceptions()) {
-                        if (createMatcher(exception).matches(target.getHostName())) {
-                            return null;
-                        }
-                    }
 
-                    return new HttpHost(proxyConfiguration.getHostname(), proxyConfiguration.getPort());
+            if (proxyConfigurationObject != null) {
+                return determineProxyFromProxyConfiguration(target, proxyConfigurationObject);
+            }
+        }
+
+        return null;
+    }
+
+    protected HttpHost determineProxyFromProxyConfiguration(HttpHost target, Object proxyConfigurationObject) {
+        ProxyConfiguration proxyConfiguration = (ProxyConfiguration) proxyConfigurationObject;
+
+        if (proxyConfiguration.isEnabled()) {
+            for (final String exception : proxyConfiguration.getProxyExceptions()) {
+                if (createMatcher(exception).matches(target.getHostName())) {
+                    return null;
                 }
             }
+
+            return new HttpHost(proxyConfiguration.getHostname(), proxyConfiguration.getPort());
         }
 
         return null;
